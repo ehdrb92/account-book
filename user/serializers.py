@@ -1,15 +1,13 @@
 from rest_framework import serializers
 
-from .models import User
-
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
-        model = User
+        model = "user.User"
         fields = "__all__"
 
 
 class SigninSerializer(serializers.ModelSerializer):
     class Meta:
-        model = User
+        model = "user.User"
         fields = ("email", "password")

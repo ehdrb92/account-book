@@ -19,7 +19,7 @@ class User(TimeStamp):
             email=email,
             password=password,
         )
-        return created
+        return UserSerializer(created).data
 
     def get_by_email(self, email: str) -> dict:
         try:

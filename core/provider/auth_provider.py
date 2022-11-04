@@ -11,7 +11,7 @@ from core.exceptions import (
     NotAuthorizedError,
     TokenExpiredError,
 )
-from ..models import User
+from user.models import User
 
 
 class AuthProvider:
