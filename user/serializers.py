@@ -7,7 +7,6 @@ class UserSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
-class SigninSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = "user.User"
-        fields = ("email", "password")
+class SigninSerializer(serializers.Serializer):
+    email = serializers.CharField(max_length=50)
+    password = serializers.CharField(max_length=255)
