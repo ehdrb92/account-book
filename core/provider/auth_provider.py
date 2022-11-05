@@ -4,14 +4,7 @@ import bcrypt
 import jwt
 from django.conf import settings
 
-from core.exceptions import (
-    NoPermssionError,
-    NotFoundError,
-    NotFoundUserError,
-    NotAuthorizedError,
-    TokenExpiredError,
-)
-from user.models import User
+from core.exceptions import TokenExpiredError
 
 
 class AuthProvider:
@@ -45,33 +38,4 @@ class AuthProvider:
             self.key,
             algorithm="HS256",
         )
-        return {"access": encoded_jwt}
-
-    def login(self, email: str, password: str):
-        try:
-            user = User.get_by_email(email=email)
-            if self.checkpw(password, user["password"]):
-                return self.create_token(user["id"])
-            else:
-                raise NotFoundUserError()
-        except Exception as e:
-            if isinstance(e, NotFoundError):
-                raise NotFoundUserError()
-            else:
-                raise e
-
-    def logout(self, token: str):
-        decoded = self._decode(token)
-        return self.create_token(decoded["id"], is_expired=True)
-
-    def check_auth(self, token: str) -> bool:
-        decoded = self._decode(token)
-        try:
-            user = user_repo.get(decoded["id"])
-            if user:
-                return user
-            else:
-                raise NotAuthorizedError
-        except Exception as e:
-            if isinstance(e, NotFoundError):
-                raise NotAuthorizedError
+        return encoded_jwt
