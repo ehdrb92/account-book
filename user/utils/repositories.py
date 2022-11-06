@@ -34,7 +34,6 @@ class UserRepo:
         password: str,
     ):
         try:
-            a = self.user_serializer(User.objects.get(email=email))
             serializer = self.user_serializer(User.objects.get(email=email)).data
             if self.auth_provider.checkpw(password=password, hashed=serializer["password"]):
                 return self.auth_provider.create_token(serializer["id"])
