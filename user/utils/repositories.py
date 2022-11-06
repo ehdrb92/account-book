@@ -11,8 +11,8 @@ from ..models import User
 class UserRepo:
     def __init__(self) -> None:
         self.auth_provider = AuthProvider()
-        self.user_serializer = UserSerializer()
-        self.signin_serializer = SigninSerializer()
+        self.user_serializer = UserSerializer
+        self.signin_serializer = SigninSerializer
 
     def create(
         self,
@@ -28,31 +28,16 @@ class UserRepo:
         )
         return self.user_serializer(created).data
 
-    # TODO 오류 발생 코드 (검토 필요)
-    # def check_email_and_password(
-    #     self,
-    #     email: str,
-    #     password: str,
-    # ):
-    #     try:
-    #         a = UserSerializer(User.objects.get(email=email))
-    #         serializer = UserSerializer(User.objects.get(email=email)).data
-    #         if self.auth_provider.checkpw(password=password, hashed=serializer["password"]):
-    #             return self.auth_provider.create_token(serializer["id"])
-    #         else:
-    #             raise NotFoundUserError()
-    #     except User.DoesNotExist:
-    #         return NotFoundError
-
     def check_email_and_password(
         self,
         email: str,
         password: str,
     ):
         try:
-            user = User.objects.get(email=email)
-            if self.auth_provider.checkpw(password=password, hashed=user.password):
-                return self.auth_provider.create_token(user.id)
+            a = self.user_serializer(User.objects.get(email=email))
+            serializer = self.user_serializer(User.objects.get(email=email)).data
+            if self.auth_provider.checkpw(password=password, hashed=serializer["password"]):
+                return self.auth_provider.create_token(serializer["id"])
             else:
                 raise NotFoundUserError()
         except User.DoesNotExist:
