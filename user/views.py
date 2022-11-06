@@ -1,7 +1,6 @@
 from django.http import JsonResponse
 from rest_framework import status
 from rest_framework.decorators import api_view
-from rest_framework.parsers import JSONParser  # TODO 해당 기능에 대해 알아볼 것
 
 from .serializers import SigninSerializer, UserSerializer
 from .utils.repositories import UserRepo
