@@ -1,10 +1,12 @@
 from rest_framework import serializers
 
+from .models import History
+
 
 class HistorySerializer(serializers.ModelSerializer):
     class Meta:
-        model = "history.History"
-        fields = "__all__"
+        model = History
+        fields = ["amount", "sort", "comment"]
 
 
 class CreateSerializer(serializers.Serializer):
