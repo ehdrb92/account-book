@@ -12,7 +12,7 @@ class History(TimeStamp):
     amount = models.IntegerField()  # 금액
     sort = models.CharField(max_length=1)  # 수입/지출 구분
     comment = models.TextField()  # 관련 메모
-    is_delete = models.BooleanField()  # 삭제 여부
+    is_delete = models.BooleanField(default=False)  # 삭제 여부
 
     class Meta:
         db_table = "history"
