@@ -6,7 +6,7 @@ from .models import History
 class HistorySerializer(serializers.ModelSerializer):
     class Meta:
         model = History
-        fields = ["amount", "sort", "comment"]
+        fields = "__all__"
 
 
 class CreateSerializer(serializers.Serializer):
