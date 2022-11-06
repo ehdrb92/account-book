@@ -2,7 +2,6 @@ from typing import List
 
 from django.db import models
 
-from .serializers import CreateInquirySerializer
 from core.models import TimeStamp
 from user.models import User
 
